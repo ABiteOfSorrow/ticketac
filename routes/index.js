@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var journeyModel = require('../models/journey')
+var journeyModel = require('../models/journey');
+const userModel = require('../models/user');
 
 
 var city = ["Paris","Marseille","Nantes","Lyon","Rennes","Melun","Bordeaux","Lille"]
@@ -15,13 +16,18 @@ router.get('/', async function(req, res, next) {
 
 /* GET homepage. */
 router.get('/homepage', async function(req, res, next) {
+  if(req.session.basket == null){
+    req.session.basket = [];
+  }
   res.render('homepage');
 });
 
 
 /* List up founded journey */
 router.post('/findjourney', async function (req, res, next){
-
+  if(req.session.basket == null){
+    req.session.basket = [];
+  }
   let tempName1 = req.body.departure.toLowerCase()
   let newDepatureName = tempName1.charAt(0).toUpperCase() + tempName1.slice(1)
   let tempName2 = req.body.arrival.toLowerCase()
@@ -31,32 +37,41 @@ router.post('/findjourney', async function (req, res, next){
   if(journeyList.length == 0){
     res.render('oops')
   } else {
-    console.log(journeyList)
     res.render('results', {journeyList})
   }
     }
   
 )
 
-let basketList = [];
 /* Add founded journey to basket */
 router.get('/add_basket', async function (req, res, next){
+  if(req.session.basket == null){
+    req.session.basket = [];
+  }
   let slctJourney = await journeyModel.findOne({ _id : req.query.slctJourney});
   console.log("basket : "+slctJourney)
-  basketList.push(slctJourney)
+  req.session.basket.push(slctJourney)
+  console.log('coucou'+JSON.stringify(req.session.basket));
 
-
-    res.render('basket', {basketList})
+    res.render('basket', {basketList: req.session.basket})
   }
 )
 
 
 
 
-router.get('/no-results', function(req,res){
-  res.render('no-results');
+router.get('/mytrips', async function(req,res){
+  if(req.session.basket == null){
+    req.session.basket = [];
+  }
+  let currentUser = await userModel.findOne({_id: req.session.user.id});
+  let myTrips = [];
+  for(var i = 0; i < currentUser.journeys.length; i++){
+    myTrips.push(await journeyModel.findOne({_id: currentUser.journeys[i] }));
+  }
+  console.log(myTrips);
+  res.render('myLastTrips', {myTrips});
 })
-
 // Remplissage de la base de donnée, une fois suffit
 router.get('/save', async function(req, res, next) {
 
@@ -101,5 +116,12 @@ router.get('/result', function(req, res, next) {
   res.render('/', { title: 'Express' });
 });
 
+router.get('/confirm-basket', async function(req,res){
+  for(var i = 0; i < req.session.basket.length; i++){
+    await userModel.updateOne({_id: req.session.user.id}, {$push: {journeys: req.session.basket[i]._id}});
+  }
+  req.session.basket = null;
+  res.redirect('/mytrips');
+})
 
 module.exports = router;

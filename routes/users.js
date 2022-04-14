@@ -42,17 +42,19 @@ router.post('/sign_up', async function (req, res, next) {
 
 /* Sign_in */
 router.post('/sign_in', async function (req, res, next){
-    let alreadyExist = await userModel.findOne({ email : req.body.userEmail, password: req.body.userPassword});
-      if(alreadyExist){
+    let alreadyExist = await userModel.find({ email : req.body.userEmail, password: req.body.userPassword});
+      if(alreadyExist.length > 0){
         req.session.user = {
-          id: req.session.id,
-          email: req.session.email}
-          res.redirect('/homepage')
-        } else{
-          res.redirect('/')
+          id: alreadyExist[0]._id,
+          email: alreadyExist[0].email
         }
+        req.session.basket = [];
+        res.redirect('/homepage')
+      } else{
+          res.redirect('/')
       }
-  )
+    }
+);
 
 /* Sign_out */
 router.get('/logout', async function(req, res, next){

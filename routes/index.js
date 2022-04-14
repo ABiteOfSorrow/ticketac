@@ -1,50 +1,23 @@
 var express = require('express');
 var router = express.Router();
+var journeyModel = require('../models/journey')
 
-const mongoose = require('mongoose');
-
-// useNewUrlParser ;)
-var options = {
-  connectTimeoutMS: 5000,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
- };
-
-// --------------------- BDD -----------------------------------------------------
-mongoose.connect('mongodb+srv://capsule:capsule@cluster0.kf5co.mongodb.net/ticketac?retryWrites=true&w=majority',
-   options,
-   function(err) {
-    if (err) {
-      console.log(`error, failed to connect to the database because --> ${err}`);
-    } else {
-      console.info('*** Database Ticketac connection : Success ***');
-    }
-   }
-);
-
-var journeySchema = mongoose.Schema({
-  departure: String,
-  arrival: String,
-  date: Date,
-  departureTime: String,
-  price: Number,
-});
-
-var journeyModel = mongoose.model('journey', journeySchema);
 
 var city = ["Paris","Marseille","Nantes","Lyon","Rennes","Melun","Bordeaux","Lille"]
 var date = ["2018-11-20","2018-11-21","2018-11-22","2018-11-23","2018-11-24"]
 
 
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+/* GET login page. */
+router.get('/', async function(req, res, next) {
+  res.render('login');
 });
 
-router.get('/homepage', function (req,res){
+/* GET homepage. */
+router.get('/homepage', async function(req, res, next) {
   res.render('homepage');
-})
+});
+
 
 // Remplissage de la base de donnée, une fois suffit
 router.get('/save', async function(req, res, next) {
@@ -73,7 +46,7 @@ router.get('/save', async function(req, res, next) {
     }
 
   }
-  res.render('index', { title: 'Express' });
+  res.render('/', { title: 'Express' });
 });
 
 
@@ -96,7 +69,7 @@ router.get('/result', function(req, res, next) {
   }
 
 
-  res.render('index', { title: 'Express' });
+  res.render('/', { title: 'Express' });
 });
 
 module.exports = router;

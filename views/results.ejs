@@ -11,7 +11,7 @@
 <body>
     <!-- NAVBAR -->
     <%- include('navbar') %> 
-    <div class="container-fluid d-flex flex-column align-items-center justify-content-center h-100">
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
         
         <% if(!results){ %>
             <div class="row d-flex flex-column col-8 cstMarginTop">
@@ -60,9 +60,10 @@
                 
             </div>
         <% } %>
-         <!-- FOOTER     -->
-        <%- include('footer') %>   
+         
     </div>
+    <!-- FOOTER     -->
+    <%- include('footer') %>   
 
     
 

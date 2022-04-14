@@ -19,9 +19,17 @@ router.get('/homepage', async function(req, res, next) {
 });
 
 router.get('/results-test', function(req,res){
-  var results = true;
+  var results = false;
   res.render('results', {results});
-})
+});
+
+router.get('/basket-test', function(req,res){
+  res.render('basket');
+});
+
+router.get('/lasttrips-test', function(req,res){
+  res.render('myLastTrips');
+});
 
 // Remplissage de la base de donnée, une fois suffit
 router.get('/save', async function(req, res, next) {

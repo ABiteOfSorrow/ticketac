@@ -48,7 +48,17 @@ h1, h2 {
 }
 
 #footer {
-  position:relative;
-  bottom:0px;
+  /* position:relative;
+  bottom:0px; */
   color: white
+}
+
+.containertest{
+  min-height:100%;
+}
+
+tr {
+  height:55px; 
+  text-align:center;
+  vertical-align: middle; 
 }

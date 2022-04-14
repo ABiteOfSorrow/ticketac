@@ -2,6 +2,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow:hidden;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1e5799+0,2989d8+50,207cca+51,7db9e8+100;Blue+Gloss+Default */
   /* background: linear-gradient(to bottom,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -23,4 +24,10 @@ a {
 .form-label {
   color: white;
   font-size:30px;
+}
+
+#footer {
+  position:fixed;
+  bottom: 0px;
+  color: white
 }

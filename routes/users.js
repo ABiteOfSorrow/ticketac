@@ -44,7 +44,6 @@ router.post('/sign_up', async function (req, res, next) {
 router.post('/sign_in', async function (req, res, next){
     let alreadyExist = await userModel.findOne({ email : req.body.userEmail, password: req.body.userPassword});
       if(alreadyExist){
-        console.log(alreadyExist)
         req.session.user = {
           id: req.session.id,
           email: req.session.email}

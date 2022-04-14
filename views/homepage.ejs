@@ -18,23 +18,13 @@
                 <h1 class="offset-2 mb-4">One-way ticket :</h1>
             </div>
             <div class="mb-3 d-flex justify-content-center">
-                <form action="/" method="POST" class="d-inline-flex justify-content-center w-100">
-                    <input type="text" name="" value="" placeholder="From: Paris, Marseille.." class="form-control w-25 mx-1">
-                    <input type="text" name="" value="" placeholder="To: Lille, Nantes.." class="form-control w-25 mx-1">
-                    <input type="date" name="" value="" class="form-control w-25 mx-1">
+                <form action="/findjourney" method="POST" class="d-inline-flex justify-content-center w-100">
+                    <input type="text" name="departure" placeholder="From: Paris, Marseille.." class="form-control w-25 mx-1">
+                    <input type="text" name="arrival" placeholder="To: Lille, Nantes.." class="form-control w-25 mx-1">
+                    <input type="date" name="date" class="form-control w-25 mx-1">
                     <button type="submit" class="btn btn-danger">Go</button>
                 </form>
             </div>
-
-
-            <!-- <div class="form-control">
-                <form action="/" method="POST">
-                    <input type="text" name="" value="" placeholder="From: Paris, Marseille..">
-                    <input type="text" name="" value="" placeholder="To: Lille, Nantes..">
-                    <input type="date" name="" value="">
-                    <button type="submit" class="btn btn-danger">Go</button>
-                </form>
-            </div> -->
             <img src="/images/landmark.png" alt="landmark" id="landmark" class="mt-5">
         </div>
 

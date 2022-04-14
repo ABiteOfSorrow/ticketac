@@ -18,6 +18,26 @@ router.get('/homepage', async function(req, res, next) {
   res.render('homepage');
 });
 
+/* List up founded journey */
+router.post('/findjourney', async function (req, res, next){
+  let journeyList = await journeyModel.find({ departure : req.body.departure, arrival: req.body.arrival, date: req.body.date});
+    if(journeyList) {
+    res.render('result', {journeyList})
+  } else {
+    res.redirect('result', {journeyList})
+  }
+}
+)
+
+
+
+
+
+
+
+
+
+
 
 // Remplissage de la base de donnée, une fois suffit
 router.get('/save', async function(req, res, next) {
@@ -40,15 +60,11 @@ router.get('/save', async function(req, res, next) {
         departureTime:Math.floor(Math.random() * Math.floor(23)) + ":00",
         price: Math.floor(Math.random() * Math.floor(125)) + 25,
       });
-       
        await newUser.save();
-
     }
-
   }
   res.render('/', { title: 'Express' });
 });
-
 
 // Cette route est juste une verification du Save.
 // Vous pouvez choisir de la garder ou la supprimer.
@@ -59,17 +75,13 @@ router.get('/result', function(req, res, next) {
 
     journeyModel.find( 
       { departure: city[i] } , //filtre
-  
       function (err, journey) {
-
           console.log(`Nombre de trajets au départ de ${journey[0].departure} : `, journey.length);
       }
     )
-
   }
-
-
   res.render('/', { title: 'Express' });
 });
+
 
 module.exports = router;

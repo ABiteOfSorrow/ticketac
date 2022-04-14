@@ -10,7 +10,7 @@ html, body {
 }
 
 body {
-  background: linear-gradient(#7db9e8, #2989d8);
+  background: linear-gradient(#a3c4dd, #6aa2d0);
 }
 
 a {
@@ -24,6 +24,11 @@ a {
 .form-label {
   color: white;
   font-size:30px;
+}
+
+#landmark {
+  height:200px;
+  width:auto;
 }
 
 #footer {

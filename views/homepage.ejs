@@ -11,5 +11,27 @@
 <body>
     <!-- NAVBAR -->
     <%- include('navbar') %> 
+    
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="row col-10 d-flex flex-column justify-content-center align-items-center">
+            <div>
+                <h1>One-way ticket :</h1>
+            </div>
+            <div>
+                <form action="/" method="POST">
+                    <input type="text" name="" value="" placeholder="From: Paris, Marseille..">
+                    <input type="text" name="" value="" placeholder="To: Lille, Nantes..">
+                    <input type="date" name="" value="">
+                    <button type="submit" class="btn btn-danger">Go</button>
+                </form>
+            </div>
+            <img src="/images/landmark.png" alt="landmark" id="landmark">
+        </div>
+
+
+
+        <!-- FOOTER     -->
+        <%- include('footer') %>
+    </div>
 </body>
 </html>

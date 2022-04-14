@@ -18,23 +18,37 @@ router.get('/homepage', async function(req, res, next) {
   res.render('homepage');
 });
 
+
 /* List up founded journey */
 router.post('/findjourney', async function (req, res, next){
-  let journeyList = await journeyModel.find({ departure : req.body.departure, arrival: req.body.arrival, date: req.body.date});
-    if(journeyList) {
-    res.render('result', {journeyList})
+
+  let tempName1 = req.body.departure.toLowerCase()
+  let newDepatureName = tempName1.charAt(0).toUpperCase() + tempName1.slice(1)
+  let tempName2 = req.body.arrival.toLowerCase()
+  let newArrivalName = tempName2.charAt(0).toUpperCase() + tempName2.slice(1)
+
+  let journeyList = await journeyModel.find({ departure : newDepatureName, arrival: newArrivalName, date: req.body.date});
+  if(journeyList.length == 0){
+    res.render('oops')
   } else {
-    res.redirect('result', {journeyList})
+    console.log(journeyList)
+    res.render('results', {journeyList})
   }
-}
+    }
+  
 )
 
+let basketList = [];
+/* Add founded journey to basket */
+router.get('/add_basket', async function (req, res, next){
+  let slctJourney = await journeyModel.findOne({ _id : req.query.slctJourney});
+  console.log("basket : "+slctJourney)
+  basketList.push(slctJourney)
 
 
-
-
-
-
+    res.render('basket', {basketList})
+  }
+)
 
 
 

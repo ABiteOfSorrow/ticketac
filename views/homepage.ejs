@@ -12,7 +12,7 @@
     <!-- NAVBAR -->
     <%- include('navbar') %> 
     
-    <div class="container-fluid d-flex justify-content-center h-100">
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
         <div class="row col-8 d-flex flex-column align-items-center mt-5">
             <div>
                 <h1 class="offset-2 mb-4">One-way ticket :</h1>
@@ -26,22 +26,17 @@
                 </form>
             </div>
 
-
-            <!-- <div class="form-control">
-                <form action="/" method="POST">
-                    <input type="text" name="" value="" placeholder="From: Paris, Marseille..">
-                    <input type="text" name="" value="" placeholder="To: Lille, Nantes..">
-                    <input type="date" name="" value="">
-                    <button type="submit" class="btn btn-danger">Go</button>
-                </form>
-            </div> -->
             <img src="/images/landmark.png" alt="landmark" id="landmark" class="mt-5">
         </div>
 
 
 
         <!-- FOOTER     -->
-        <%- include('footer') %>
+    <%- include('footer') %>
     </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 </body>
 </html>

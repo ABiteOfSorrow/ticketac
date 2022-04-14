@@ -44,6 +44,11 @@ router.get('/', function(req, res, next) {
 
 router.get('/homepage', function (req,res){
   res.render('homepage');
+});
+
+router.get('/results-test', function(req,res){
+  var results = true;
+  res.render('results', {results});
 })
 
 // Remplissage de la base de donnée, une fois suffit

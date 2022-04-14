@@ -31,31 +31,28 @@ router.post('/findjourney', async function (req, res, next){
   if(journeyList.length == 0){
     res.render('oops')
   } else {
-    console.log(journeyList)
     res.render('results', {journeyList})
   }
     }
   
 )
 
-let basketList = [];
 /* Add founded journey to basket */
+
+
 router.get('/add_basket', async function (req, res, next){
   let slctJourney = await journeyModel.findOne({ _id : req.query.slctJourney});
-  console.log("basket : "+slctJourney)
-  basketList.push(slctJourney)
 
 
-    res.render('basket', {basketList})
+
+    res.render('basket', {basketList: req.session.basket})
   }
 )
 
 
 
 
-router.get('/no-results', function(req,res){
-  res.render('no-results');
-})
+
 
 // Remplissage de la base de donnée, une fois suffit
 router.get('/save', async function(req, res, next) {

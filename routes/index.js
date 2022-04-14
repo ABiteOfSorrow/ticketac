@@ -19,7 +19,7 @@ router.get('/homepage', async function(req, res, next) {
 });
 
 router.get('/results-test', function(req,res){
-  var results = false;
+  var results = true;
   res.render('results', {results});
 });
 

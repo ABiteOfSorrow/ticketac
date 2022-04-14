@@ -17,8 +17,16 @@ a {
   color: #00B7FF;
 }
 
+h1 {
+  color: white;
+}
+
 .navbar-nav{
   margin-left:auto;
+}
+
+.navbar {
+  height:60px;
 }
 
 .form-label {
@@ -27,7 +35,7 @@ a {
 }
 
 #landmark {
-  height:200px;
+  height:250px;
   width:auto;
 }
 

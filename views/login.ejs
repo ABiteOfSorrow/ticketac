@@ -14,31 +14,31 @@
     <div class="container-fluid d-flex flex-column justify-content-center align-items-center cstMarginTop">
       <div class="row d-inline-flex col-6 justify-content-around text-center">
         <div class="signin col-5">
-          <form action="/" method="POST">
+          <form action="/users/sign_in" method="POST">
             <div class="mb-3">
               <label for="signinEmail" class="form-label">Sign-in:</label>
-              <input type="email" class="form-control" id="signinEmail" placeholder="Email">
+              <input type="email" class="form-control" id="signinEmail" placeholder="Email" name="userEmail">
             </div>
             <div class="mb-3">
-              <input type="password" class="form-control" placeholder="Password">
+              <input type="password" class="form-control" placeholder="Password" name="userPassword">
             </div>
             <button type="submit" class="btn btn-danger">Confirm</button>
         </form>
         </div>
         <div class="signup col-5">
-          <form action="/" method="POST">
+          <form action="/users/sign_up" method="POST">
             <div class="mb-3">
               <label for="signupName" class="form-label">Sign-up:</label>
-              <input type="text" class="form-control" id="signupName" placeholder="Name">
+              <input type="text" class="form-control" id="signupName" placeholder="Name" name="userName">
             </div>
             <div class="mb-3">
-              <input type="text" class="form-control" placeholder="FirstName">
+              <input type="text" class="form-control" placeholder="FirstName" name="userFirstName">
             </div>
             <div class="mb-3">
-              <input type="email" class="form-control" placeholder="Email">
+              <input type="email" class="form-control" placeholder="Email" name="userEmail">
             </div>
             <div class="mb-3">
-              <input type="password" class="form-control" placeholder="Password">
+              <input type="password" class="form-control" placeholder="Password" name="userPassword">
             </div>
             <button type="submit" class="btn btn-danger">Confirm</button>
         </form>

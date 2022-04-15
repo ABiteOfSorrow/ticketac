@@ -84,6 +84,17 @@ router.get('/mytrips', async function(req,res){
   res.render('myLastTrips', {myTrips});
 })
 
+/* Add confirmed journey to my Last Trips */
+router.get('/confirm-basket', async function(req,res){
+  if(!req.session.user){
+    res.redirect("/");
+  }
+  for(var i = 0; i < req.session.basket.length; i++){
+    await userModel.updateOne({_id: req.session.user.id}, {$push: {journeys: req.session.basket[i]._id}});
+  }
+  req.session.basket = null;
+  res.redirect('/mytrips');
+})
 
 
 
@@ -131,15 +142,6 @@ router.get('/result', function(req, res, next) {
   res.render('/', { title: 'Express' });
 });
 
-router.get('/confirm-basket', async function(req,res){
-  if(!req.session.user){
-    res.redirect("/");
-  }
-  for(var i = 0; i < req.session.basket.length; i++){
-    await userModel.updateOne({_id: req.session.user.id}, {$push: {journeys: req.session.basket[i]._id}});
-  }
-  req.session.basket = null;
-  res.redirect('/mytrips');
-})
+
 
 module.exports = router;

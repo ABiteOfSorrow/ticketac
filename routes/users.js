@@ -35,7 +35,7 @@ router.post('/sign_up', async function (req, res, next) {
         }
       }
   }
-  res.redirect('/');
+  res.redirect('/homepage');
 });
 
 

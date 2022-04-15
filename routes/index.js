@@ -21,7 +21,7 @@ router.get('/', async function(req, res, next) {
 /* GET homepage. */
 router.get('/homepage', async function(req, res, next) {
   if(!req.session.user){
-    res.redirect("/");
+    return res.redirect("/");
   }
   if(req.session.basket == null){
     req.session.basket = [];
@@ -33,7 +33,7 @@ router.get('/homepage', async function(req, res, next) {
 /* List up founded journey */
 router.post('/findjourney', async function (req, res, next){
   if(!req.session.user){
-    res.redirect("/");
+    return res.redirect("/");
   }
   if(req.session.basket == null){
     req.session.basket = [];
@@ -57,7 +57,7 @@ router.post('/findjourney', async function (req, res, next){
 
 router.get('/add_basket', async function (req, res, next){
   if(!req.session.user){
-    res.redirect("/");
+    return res.redirect("/");
   }
     if(req.session.basket == null){
       req.session.basket = [];
@@ -70,7 +70,7 @@ router.get('/add_basket', async function (req, res, next){
 
 router.get('/basket', async function (req,res){
   if(!req.session.user){
-    res.redirect("/");
+    return res.redirect("/");
   }
   if(req.session.basket == null){
     req.session.basket = [];
@@ -78,12 +78,10 @@ router.get('/basket', async function (req,res){
   res.render('basket',{basketList: req.session.basket})
 })
 
-
-/* Add confirmed journey to myLastTrips */
 router.get('/mytrips', async function(req,res){
   if(!req.session.user){
     console.log("no user identified");
-    res.redirect("/");
+    return res.redirect("/");
   }else{
     if(req.session.basket == null){
       req.session.basket = [];
@@ -101,7 +99,7 @@ router.get('/mytrips', async function(req,res){
 /* Add confirmed journey to my Last Trips */
 router.get('/confirm-basket', async function(req,res){
   if(!req.session.user){
-    res.redirect("/");
+    return res.redirect("/");
   }
   for(var i = 0; i < req.session.basket.length; i++){
     await userModel.updateOne({_id: req.session.user.id}, {$push: {journeys: req.session.basket[i]._id}});

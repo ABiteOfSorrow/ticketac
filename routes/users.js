@@ -62,6 +62,7 @@ router.get('/logout', async function(req, res, next){
   res.redirect('/')
 })
 
+
 /* Add confirmed journey to my Last Trips */
 router.get('/confirm-basket', async function(req,res){
 

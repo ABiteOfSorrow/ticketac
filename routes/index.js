@@ -46,7 +46,6 @@ router.post('/findjourney', async function (req, res, next){
 
 /* Add founded journey to basket */
 
-
 router.get('/add_basket', async function (req, res, next){
   if(req.session.basket == null){
     req.session.basket = [];
@@ -59,6 +58,7 @@ router.get('/add_basket', async function (req, res, next){
 )
 
 
+/* Add confirmed journey to myLastTrips */
 router.get('/mytrips', async function(req,res){
   if(req.session.basket == null){
     req.session.basket = [];

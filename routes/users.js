@@ -62,5 +62,17 @@ router.get('/logout', async function(req, res, next){
   res.redirect('/')
 })
 
+/* Add confirmed journey to my Last Trips */
+router.get('/confirm-basket', async function(req,res){
+
+  req.session.basket = req.query.basket
+  console.log(req.session.basket)
+  console.log(req.session.user)
+  for(var i = 0; i < req.session.basket.length; i++){
+    await userModel.updateOne({_id: req.session.user._id}, {$push: {journeys: req.session.basket[i]._id}});
+  }
+  req.session.basket = null;
+  res.redirect('/mytrips');
+})
 
 module.exports = router;

@@ -21,14 +21,15 @@
                 <table class="table table-hover table-light table-borderless">
                     <thead>
                       <tr>
-                        <th scope="col">N°</th>
-                        <th scope="col">Journey</th>
+                        <th scope="row" class="fw-bold"><%= [i+1] %></th>
                         <th scope="col">Date</th>
+                        <th scope="col">Journey</th>
                         <th scope="col">Departure time</th>
                         <th scope="col">Price</th>
                       </tr>
                     </thead>
                     <tbody>
+
                         <% for(var i = 0; i < myTrips.length; i++){ %>
                       <tr>
                         <th scope="row" class="fw-bold"><%= i+1 %></th>
@@ -38,6 +39,7 @@
                         <td><%= myTrips[i].price %> €</td>
                       </tr>
                         <% } %>
+
                     </tbody>
                   </table>
                   <a href='/homepage'><button class="btn btn-danger btn-lg">Home</button></a>

@@ -14,6 +14,7 @@ router.get('/', async function(req, res, next) {
   res.render('login');
 });
 
+
 /* GET homepage. */
 router.get('/homepage', async function(req, res, next) {
   if(!req.session.user){
@@ -50,6 +51,8 @@ router.post('/findjourney', async function (req, res, next){
 )
 
 /* Add founded journey to basket */
+
+
 router.get('/add_basket', async function (req, res, next){
   if(!req.session.user){
     res.redirect("/");
@@ -58,15 +61,11 @@ router.get('/add_basket', async function (req, res, next){
     req.session.basket = [];
   }
   let slctJourney = await journeyModel.findOne({ _id : req.query.slctJourney});
-  console.log("basket : "+slctJourney)
-  req.session.basket.push(slctJourney)
-  console.log('coucou'+JSON.stringify(req.session.basket));
 
+  req.session.basket.push(slctJourney)
     res.render('basket', {basketList: req.session.basket})
   }
 )
-
-
 
 
 router.get('/mytrips', async function(req,res){
@@ -84,6 +83,10 @@ router.get('/mytrips', async function(req,res){
   console.log(myTrips);
   res.render('myLastTrips', {myTrips});
 })
+
+
+
+
 // Remplissage de la base de donnée, une fois suffit
 router.get('/save', async function(req, res, next) {
 

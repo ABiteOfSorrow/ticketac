@@ -36,7 +36,7 @@
                       <tr>
                         <th scope="row" class="fw-bold"><%= [i+1] %></th>
                         <td><%= basketList[i].departure %> / <%= basketList[i].arrival %></td>
-                        <td><%= basketList[i].date.toLocaleDateString('fr-FR') %>  </td>
+                        <td><%= new Date(basketList[i].date).toLocaleDateString('fr-FR') %>  </td>
                         <td><%= basketList[i].departureTime %> pm</td>
                         <td><%= basketList[i].price %> €</td>
                       </tr>

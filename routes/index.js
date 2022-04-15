@@ -17,6 +17,9 @@ router.get('/', async function(req, res, next) {
 
 /* GET homepage. */
 router.get('/homepage', async function(req, res, next) {
+  if(!req.session.user){
+    res.redirect("/");
+  }
   if(req.session.basket == null){
     req.session.basket = [];
   }
@@ -26,6 +29,9 @@ router.get('/homepage', async function(req, res, next) {
 
 /* List up founded journey */
 router.post('/findjourney', async function (req, res, next){
+  if(!req.session.user){
+    res.redirect("/");
+  }
   if(req.session.basket == null){
     req.session.basket = [];
   }
@@ -47,6 +53,9 @@ router.post('/findjourney', async function (req, res, next){
 /* Add founded journey to basket */
 
 router.get('/add_basket', async function (req, res, next){
+  if(!req.session.user){
+    res.redirect("/");
+  }
   if(req.session.basket == null){
     req.session.basket = [];
   }
@@ -60,6 +69,9 @@ router.get('/add_basket', async function (req, res, next){
 
 /* Add confirmed journey to myLastTrips */
 router.get('/mytrips', async function(req,res){
+  if(!req.session.user){
+    res.redirect("/");
+  }
   if(req.session.basket == null){
     req.session.basket = [];
   }
@@ -119,5 +131,15 @@ router.get('/result', function(req, res, next) {
   res.render('/', { title: 'Express' });
 });
 
+router.get('/confirm-basket', async function(req,res){
+  if(!req.session.user){
+    res.redirect("/");
+  }
+  for(var i = 0; i < req.session.basket.length; i++){
+    await userModel.updateOne({_id: req.session.user.id}, {$push: {journeys: req.session.basket[i]._id}});
+  }
+  req.session.basket = null;
+  res.redirect('/mytrips');
+})
 
 module.exports = router;

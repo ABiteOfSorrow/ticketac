@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var journeyModel = require('../models/journey')
+var journeyModel = require('../models/journey');
+const userModel = require('../models/user');
 
 
 var city = ["Paris","Marseille","Nantes","Lyon","Rennes","Melun","Bordeaux","Lille"]
@@ -13,15 +14,21 @@ router.get('/', async function(req, res, next) {
   res.render('login');
 });
 
+
 /* GET homepage. */
 router.get('/homepage', async function(req, res, next) {
+  if(req.session.basket == null){
+    req.session.basket = [];
+  }
   res.render('homepage');
 });
 
 
 /* List up founded journey */
 router.post('/findjourney', async function (req, res, next){
-
+  if(req.session.basket == null){
+    req.session.basket = [];
+  }
   let tempName1 = req.body.departure.toLowerCase()
   let newDepatureName = tempName1.charAt(0).toUpperCase() + tempName1.slice(1)
   let tempName2 = req.body.arrival.toLowerCase()
@@ -41,15 +48,29 @@ router.post('/findjourney', async function (req, res, next){
 
 
 router.get('/add_basket', async function (req, res, next){
+  if(req.session.basket == null){
+    req.session.basket = [];
+  }
   let slctJourney = await journeyModel.findOne({ _id : req.query.slctJourney});
 
-
-
+  req.session.basket.push(slctJourney)
     res.render('basket', {basketList: req.session.basket})
   }
 )
 
 
+router.get('/mytrips', async function(req,res){
+  if(req.session.basket == null){
+    req.session.basket = [];
+  }
+  let currentUser = await userModel.findOne({_id: req.session.user.id});
+  let myTrips = [];
+  for(var i = 0; i < currentUser.journeys.length; i++){
+    myTrips.push(await journeyModel.findOne({_id: currentUser.journeys[i] }));
+  }
+  console.log(myTrips);
+  res.render('myLastTrips', {myTrips});
+})
 
 
 

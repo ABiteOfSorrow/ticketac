@@ -36,7 +36,7 @@
                       <tr>
                         <th scope="row" class="fw-bold"><%= [i+1] %></th>
                         <td><%= basketList[i].departure %> / <%= basketList[i].arrival %></td>
-                        <td><%= basketList[i].date.toLocaleDateString('fr-FR') %>  </td>
+                        <td><%= new Date(basketList[i].date).toLocaleDateString('fr-FR') %>  </td>
                         <td><%= basketList[i].departureTime %> pm</td>
                         <td><%= basketList[i].price %> €</td>
                       </tr>
@@ -67,7 +67,7 @@
                                     Please confirm your journeys
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="/users/confirm_basket?basketList"><button type="button" class="btn btn-danger">Confirm</button></a>
+                                    <a href="/users/confirm-basket?&basket=<%=basketList%>"><button type="button" class="btn btn-danger">Confirm</button></a>
                                     <a href="/homepage"><button type="button" class="btn btn-secondary" data-dismiss="modal">Home</button></a>
                                 </div>
                             </div>

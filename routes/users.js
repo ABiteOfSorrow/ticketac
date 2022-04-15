@@ -42,17 +42,19 @@ router.post('/sign_up', async function (req, res, next) {
 
 /* Sign_in */
 router.post('/sign_in', async function (req, res, next){
-    let alreadyExist = await userModel.findOne({ email : req.body.userEmail, password: req.body.userPassword});
-      if(alreadyExist){
+    let alreadyExist = await userModel.find({ email : req.body.userEmail, password: req.body.userPassword});
+      if(alreadyExist.length > 0){
         req.session.user = {
-          id: req.session.id,
-          email: req.session.email}
-          res.redirect('/homepage')
-        } else{
-          res.redirect('/')
+          id: alreadyExist[0]._id,
+          email: alreadyExist[0].email
         }
+        req.session.basket = [];
+        res.redirect('/homepage')
+      } else{
+          res.redirect('/')
       }
-  )
+    }
+);
 
 /* Sign_out */
 router.get('/logout', async function(req, res, next){
@@ -60,22 +62,17 @@ router.get('/logout', async function(req, res, next){
   res.redirect('/')
 })
 
-
-
 /* Add confirmed journey to my Last Trips */
+router.get('/confirm-basket', async function(req,res){
 
-router.get('/confirm_basket', async function (req, res, next){
-
-      console.log(req.session.basket);
-      for(var i = 0; i < req.session.basket.length; i++){
-        await userModel.updateOne({_id:req.session.user.id}, {$push: {journeys: req.session.basket[i]._id}});
-      }
-      let lastTrips = await userModel.find({_id: req.session.user.id});
-  
-      res.render('myLastTrips', {myJourneyList: lastTrips})
-    }
-  )
-
-
+  req.session.basket = req.query.basket
+  console.log(req.session.basket)
+  console.log(req.session.user)
+  for(var i = 0; i < req.session.basket.length; i++){
+    await userModel.updateOne({_id: req.session.user._id}, {$push: {journeys: req.session.basket[i]._id}});
+  }
+  req.session.basket = null;
+  res.redirect('/mytrips');
+})
 
 module.exports = router;

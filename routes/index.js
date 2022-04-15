@@ -11,6 +11,9 @@ var date = ["2018-11-20","2018-11-21","2018-11-22","2018-11-23","2018-11-24"]
 
 /* GET login page. */
 router.get('/', async function(req, res, next) {
+  if(req.session.user){
+    req.session.user = null;
+  }
   res.render('login');
 });
 
@@ -56,32 +59,43 @@ router.get('/add_basket', async function (req, res, next){
   if(!req.session.user){
     res.redirect("/");
   }
-  if(req.session.basket == null){
-    req.session.basket = [];
-  }
-  let slctJourney = await journeyModel.findOne({ _id : req.query.slctJourney});
+    if(req.session.basket == null){
+      req.session.basket = [];
+    }
+    let slctJourney = await journeyModel.findOne({ _id : req.query.slctJourney});
 
-  req.session.basket.push(slctJourney)
-    res.render('basket', {basketList: req.session.basket})
-  }
-)
+    req.session.basket.push(slctJourney)
+    res.redirect('/basket');
+});
 
-
-/* Add confirmed journey to myLastTrips */
-router.get('/mytrips', async function(req,res){
+router.get('/basket', async function (req,res){
   if(!req.session.user){
     res.redirect("/");
   }
   if(req.session.basket == null){
     req.session.basket = [];
   }
-  let currentUser = await userModel.findOne({_id: req.session.user.id});
-  let myTrips = [];
-  for(var i = 0; i < currentUser.journeys.length; i++){
-    myTrips.push(await journeyModel.findOne({_id: currentUser.journeys[i] }));
+  res.render('basket',{basketList: req.session.basket})
+})
+
+
+/* Add confirmed journey to myLastTrips */
+router.get('/mytrips', async function(req,res){
+  if(!req.session.user){
+    console.log("no user identified");
+    res.redirect("/");
+  }else{
+    if(req.session.basket == null){
+      req.session.basket = [];
+    }
+    let currentUser = await userModel.findOne({_id: req.session.user.id});
+    let myTrips = [];
+    for(var i = 0; i < currentUser.journeys.length; i++){
+      myTrips.push(await journeyModel.findOne({_id: currentUser.journeys[i] }));
+    }
+    console.log(myTrips);
+    res.render('myLastTrips', {myTrips});
   }
-  console.log(myTrips);
-  res.render('myLastTrips', {myTrips});
 })
 
 /* Add confirmed journey to my Last Trips */
